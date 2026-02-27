@@ -8,7 +8,8 @@ public class Jfuck {
         //todo handle program_counter and size comparison
         final int size = 30_000;
         Program program = new Program(size);
-       for(char programCounter:  ip.toCharArray()) {
+       for(int i = 0; i < ip.length(); i++){
+           char programCounter =  ip.charAt(i);
            switch (programCounter) {
                case '+':
                    program.container[program.dataCounter]++;
@@ -17,7 +18,7 @@ public class Jfuck {
                    program.container[program.dataCounter]--;
                    break;
                case '.':
-                    System.out.println((char) program.container[program.dataCounter]);
+                    System.out.print((char) program.container[program.dataCounter]);
                     break;
                case ',':
 //                   todo handle input later
@@ -36,8 +37,18 @@ public class Jfuck {
                    }
                    break;
                case '[':
+                   if(program.container[program.dataCounter] == 0) {
+                       while(programCounter != ']'){
+                           programCounter = ip.charAt(++i);
+                       }
+                   }
                    break;
                case ']':
+                   if(program.container[program.dataCounter] != 0) {
+                       while(programCounter != '['){
+                           programCounter = ip.charAt(--i);
+                       }
+                   }
                    break;
                default:
                    /*
